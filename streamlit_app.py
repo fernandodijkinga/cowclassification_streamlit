@@ -6,9 +6,9 @@ from ultralytics import YOLO
 import pandas as pd
 import collections
 
-device = 'mps'
+device = 'cpu'
 
-detector = YOLO("YOLOcowsegmentation_v8m.pt")  # Object detection
+detector = YOLO("YOLO/cowsegmentation_v8m.pt")  # Object detection
 classifier_generalhygiene = YOLO("YOLO/mk1_generalhygiene.pt")  # Classify on class 2
 classifier_sex = YOLO("YOLO/mk1_sexo.pt")  # Classify on class 2
 classifier_age = YOLO("YOLO/mk1_age.pt")  # Classify on class 2
@@ -26,7 +26,7 @@ classifier_rearteat = YOLO("YOLO/mk1_rearteat.pt")  # Classify on class 5
 classifier_legside = YOLO("YOLO/mk1_legside.pt")  # Classify on class 4
 
 # Function to run detection and classification and save processed video
-def detect_and_classify(video_path, detector, classifiers_frame, classifiers_foreudder, classifiers_rearudder, classifiers_legside):
+def detect_and_classify(video_path, detector, classifiers_frame, classifiers_foreudder, classifiers_rearudder, classifiers_legside, progress_bar):
     cap = cv2.VideoCapture(video_path)
     frame_count = 0
     
@@ -34,6 +34,7 @@ def detect_and_classify(video_path, detector, classifiers_frame, classifiers_for
     frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fps = cap.get(cv2.CAP_PROP_FPS)
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     
     # Define the codec and create VideoWriter object
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Change codec as needed
@@ -118,6 +119,9 @@ def detect_and_classify(video_path, detector, classifiers_frame, classifiers_for
         out.write(frame)
 
         frame_count += 1
+
+        # Update progress bar
+        progress_bar.progress(frame_count / total_frames)
     
     # Release everything if job is finished
     cap.release()
@@ -155,8 +159,8 @@ classifiers_legside = {
 }
 
 # Streamlit app
-st.title("Cattle Video Classification")
-st.write("Upload a video to process.")
+st.title("GenMateVision MK1")
+st.write("Upload do video.")
 
 uploaded_video = st.file_uploader("Choose a video...", type=["mp4", "avi", "mov"])
 
@@ -168,8 +172,9 @@ if uploaded_video is not None:
     st.video(uploaded_video)
 
     if st.button("Process Video"):
+        progress_bar = st.progress(0)
         with st.spinner('Processing...'):
-            prediction_counts = detect_and_classify("/tmp/uploaded_video.mp4", detector, classifiers_frame, classifiers_foreudder, classifiers_rearudder, classifiers_legside)
+            prediction_counts = detect_and_classify("/tmp/uploaded_video.mp4", detector, classifiers_frame, classifiers_foreudder, classifiers_rearudder, classifiers_legside, progress_bar)
         
         st.success('Processing complete!')
         
