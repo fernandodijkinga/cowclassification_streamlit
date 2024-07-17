@@ -1,3 +1,5 @@
+sudo apt-get update
+sudo apt-get install -y libgl1-mesa-glx
 streamlit
 cv2
 numpy
