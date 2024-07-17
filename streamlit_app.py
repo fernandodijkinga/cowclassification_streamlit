@@ -8,25 +8,22 @@ import collections
 
 device = 'mps'
 
-# Load your models
-keypoints = YOLO("/Users/fernandojeandijkinga/codigos/cowbehaviour_v8x.pt")
-
-detector = YOLO("/Users/fernandojeandijkinga/codigos/cowsegmentation_v8m.pt")  # Object detection
-classifier_generalhygiene = YOLO("/Users/fernandojeandijkinga/codigos/mk1_generalhygiene.pt")  # Classify on class 2
-classifier_sex = YOLO("/Users/fernandojeandijkinga/codigos/mk1_sexo.pt")  # Classify on class 2
-classifier_age = YOLO("/Users/fernandojeandijkinga/codigos/mk1_age.pt")  # Classify on class 2
-classifier_dairyform = YOLO("/Users/fernandojeandijkinga/codigos/mk1_dairyform.pt")  # Classify on class 2
-classifier_bodydepth = YOLO("/Users/fernandojeandijkinga/codigos/mk1_bodydepth.pt")  # Classify on class 2
-classifier_strength = YOLO("/Users/fernandojeandijkinga/codigos/mk1_strength.pt")  # Classify on class 2
-classifier_stature = YOLO("/Users/fernandojeandijkinga/codigos/mk1_stature.pt")  # Classify on class 2
-classifier_udderattachment = YOLO("/Users/fernandojeandijkinga/codigos/mk1_udderattachment.pt")  # Classify on class 1
-classifier_udderheight = YOLO("/Users/fernandojeandijkinga/codigos/mk1_udderheight.pt")  # Classify on class 5
-classifier_uddercleft = YOLO("/Users/fernandojeandijkinga/codigos/mk1_uddercleft.pt")  # Classify on class 5
-classifier_udderdepth = YOLO("/Users/fernandojeandijkinga/codigos/mk1_udderdepth.pt")  # Classify on class 5
-classifier_udderwidth = YOLO("/Users/fernandojeandijkinga/codigos/mk1_udderwidth.pt")  # Classify on class 5
-classifier_teatlength = YOLO("/Users/fernandojeandijkinga/codigos/mk1_teatlength.pt")  # Classify on class 5
-classifier_rearteat = YOLO("/Users/fernandojeandijkinga/codigos/mk1_rearteat.pt")  # Classify on class 5
-classifier_legside = YOLO("/Users/fernandojeandijkinga/codigos/mk1_legside.pt")  # Classify on class 4
+detector = YOLO("YOLOcowsegmentation_v8m.pt")  # Object detection
+classifier_generalhygiene = YOLO("YOLO/mk1_generalhygiene.pt")  # Classify on class 2
+classifier_sex = YOLO("YOLO/mk1_sexo.pt")  # Classify on class 2
+classifier_age = YOLO("YOLO/mk1_age.pt")  # Classify on class 2
+classifier_dairyform = YOLO("YOLO/mk1_dairyform.pt")  # Classify on class 2
+classifier_bodydepth = YOLO("YOLO/mk1_bodydepth.pt")  # Classify on class 2
+classifier_strength = YOLO("YOLO/mk1_strength.pt")  # Classify on class 2
+classifier_stature = YOLO("YOLO/mk1_stature.pt")  # Classify on class 2
+classifier_udderattachment = YOLO("YOLO/mk1_udderattachment.pt")  # Classify on class 1
+classifier_udderheight = YOLO("YOLO/mk1_udderheight.pt")  # Classify on class 5
+classifier_uddercleft = YOLO("YOLO/mk1_uddercleft.pt")  # Classify on class 5
+classifier_udderdepth = YOLO("YOLO/mk1_udderdepth.pt")  # Classify on class 5
+classifier_udderwidth = YOLO("YOLO/mk1_udderwidth.pt")  # Classify on class 5
+classifier_teatlength = YOLO("YOLO/mk1_teatlength.pt")  # Classify on class 5
+classifier_rearteat = YOLO("YOLO/mk1_rearteat.pt")  # Classify on class 5
+classifier_legside = YOLO("YOLO/mk1_legside.pt")  # Classify on class 4
 
 # Function to run detection and classification and save processed video
 def detect_and_classify(video_path, detector, classifiers_frame, classifiers_foreudder, classifiers_rearudder, classifiers_legside):
