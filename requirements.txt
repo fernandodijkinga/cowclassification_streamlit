@@ -1,1 +1,7 @@
 streamlit
+cv2
+numpy
+PIL
+ultralytics
+pandas
+collections
