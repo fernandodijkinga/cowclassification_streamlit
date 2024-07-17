@@ -1,7 +1,5 @@
 streamlit
 opencv-python
-numpy
-PIL
 ultralytics
 pandas
-collections
+pillow
